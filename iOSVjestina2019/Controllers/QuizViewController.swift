@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InitialViewController: UIViewController {
+class QuizViewController: UIViewController {
     
     let quizService = QuizService()
     var quizzes: [Quiz]? = nil
@@ -23,10 +23,21 @@ class InitialViewController: UIViewController {
     @IBOutlet weak var quizTitleLabel: UILabel!
     @IBOutlet weak var quizImageView: UIImageView!
     @IBOutlet weak var questionViewContainer: UIView!
+    @IBOutlet weak var logoutButton: UIButton!
+    
+    let neutralAnswerColor = UIColor(red: 0.04, green: 0.478, blue: 1.0, alpha: 1.0)
+    let wrongAnswerColor = UIColor(red: 0.987, green: 0.210, blue: 0.208, alpha: 1.0)
+    let correctAnswerColor = UIColor(red: 0.230, green: 0.8, blue: 0.266, alpha: 1.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchQuizzesButton.layer.cornerRadius = fetchQuizzesButton.bounds.size.height / 2
+    }
+    
+    @IBAction func onTapLogoutButton(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "token")
+        let loginViewController = LoginViewController()
+        self.present(loginViewController, animated:true, completion: nil)
     }
     
     @IBAction func onTapFetchQuizzes(_ sender: Any) {
@@ -34,7 +45,6 @@ class InitialViewController: UIViewController {
             self.quizzes = quizzes
             if let quizzes = quizzes {
                 let nbaQuestions: [[Question]] = quizzes.map {
-                    
                     let filteredQuestions: [Question] = $0.questions.filter {
                         return $0.question.contains("NBA")
                     }
@@ -80,7 +90,7 @@ class InitialViewController: UIViewController {
                     if self.questionView == nil  {
                         self.addQuestionView()
                     } else {
-                        self.setAnswerButtonsValues()
+                        self.updateQuestionView()
                     }
                 }
             } else {
@@ -96,38 +106,33 @@ class InitialViewController: UIViewController {
     
     private func addQuestionView() {
         questionView = QuestionView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: questionViewContainer.frame.size))
-        guard let questionView = questionView else {
-            return
+        if let questionView = questionView {
+            questionView.setQuestionText(text: selectedQuestion?.question)
+            for i in 0...3 {
+                questionView.setButtontitle(at: i, title: selectedQuestion?.answers[i])
+                questionView.getButton(at: i).addTarget(self, action: #selector(QuizViewController.onTapAnswerButton), for: UIControl.Event.touchUpInside)
+            }
+            questionViewContainer.addSubview(questionView)
         }
-        questionView.questionTextLabel?.text = selectedQuestion?.question
-        for i in 0...3 {
-            questionView.answerButtons[i].setTitle(selectedQuestion?.answers[i], for:UIControl.State.normal)
-            questionView.answerButtons[i].addTarget(self, action: #selector(InitialViewController.onTapAnswerButton), for: UIControl.Event.touchUpInside)
-        }
-        questionViewContainer.addSubview(questionView)
     }
     
-    private func setAnswerButtonsValues() {
-        if let questionView = questionView {
-            if let questionTextLabel = questionView.questionTextLabel {
-                questionTextLabel.text = selectedQuestion?.question
-            }
+    private func updateQuestionView() {
+        if let questionView = questionView, let selectedQuestion = selectedQuestion {
+            questionView.setQuestionText(text: selectedQuestion.question)
             for i in 0...3 {
-                questionView.answerButtons[i].setTitle(selectedQuestion?.answers[i], for:UIControl.State.normal)
-                questionView.answerButtons[i].backgroundColor = UIColor(red: 0.04, green: 0.478, blue: 1.0, alpha: 1.0)
+                questionView.setButtonBackgroundColor(at: i, color: neutralAnswerColor)
+                questionView.setButtontitle(at: i, title: selectedQuestion.answers[i])
             }
         }
     }
     
     @objc func onTapAnswerButton(_ sender: UIButton) {
-        guard let index = questionView?.answerButtons.firstIndex(of: sender),
-            let selectedQuestion = selectedQuestion else {
-            return
-        }
-        if(index == selectedQuestion.correctAnswer) {
-            questionView?.answerButtons[index].backgroundColor = UIColor(red: 0.230, green: 0.8, blue: 0.266, alpha: 1.0)
-        } else {
-            questionView?.answerButtons[index].backgroundColor = UIColor(red: 0.987, green: 0.210, blue: 0.208, alpha: 1.0)
+        if let questionView = questionView, let selectedQuestion = selectedQuestion, let index = questionView.getIndex(of: sender) {
+            if(index == selectedQuestion.correctAnswer) {
+                questionView.setButtonBackgroundColor(at: index, color: correctAnswerColor)
+            } else {
+                questionView.setButtonBackgroundColor(at: index, color: wrongAnswerColor)
+            }
         }
     }
     

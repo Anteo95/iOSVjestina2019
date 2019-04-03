@@ -10,11 +10,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InitialViewController" customModule="iOSVjestina2019" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QuizViewController" customModule="iOSVjestina2019" customModuleProvider="target">
             <connections>
                 <outlet property="errorMessageLabel" destination="tlH-40-YhS" id="KZt-2O-tfJ"/>
                 <outlet property="fetchQuizzesButton" destination="5nI-tI-4QT" id="ggs-hr-g6d"/>
                 <outlet property="funFactLabel" destination="bL7-I8-APQ" id="Po3-fO-4Of"/>
+                <outlet property="logoutButton" destination="YkR-g4-Iz0" id="VM1-dd-YxI"/>
                 <outlet property="questionViewContainer" destination="TKR-8R-ZRc" id="tj8-0Q-qeH"/>
                 <outlet property="quizImageView" destination="ZwQ-PS-X0B" id="z4h-8r-xbE"/>
                 <outlet property="quizTitleLabel" destination="MDB-V4-bPS" id="ZVo-tu-mYR"/>
@@ -69,11 +70,22 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YkR-g4-Iz0">
+                    <rect key="frame" x="331" y="57" width="63" height="58"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="Logout">
+                        <color key="titleColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                    </state>
+                    <connections>
+                        <action selector="onTapLogoutButton:" destination="-1" eventType="touchUpInside" id="cPf-8Z-3dk"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <color key="tintColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="-1276.8115942028987" y="-427.90178571428572"/>
+            <point key="canvasLocation" x="-1581.1594202898552" y="-429.24107142857139"/>
         </view>
     </objects>
 </document>

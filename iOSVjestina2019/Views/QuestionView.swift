@@ -19,7 +19,6 @@ class QuestionView: UIView {
         let labelOrigin = CGPoint(x: 10, y: 10)
         let labelSize = CGSize(width: frame.size.width, height: 100.0)
 
-    
         questionTextLabel = UILabel(frame: CGRect(origin: labelOrigin, size: labelSize))
         
         if let questionTextLabel = questionTextLabel {
@@ -60,6 +59,31 @@ class QuestionView: UIView {
         }
     }
     
+    func setButtonBackgroundColor(at index: Int, color: UIColor) {
+        assert(index >= 0 && index < answerButtons.count)
+        answerButtons[index].backgroundColor = color
+    }
+    
+    func setButtontitle(at index: Int, title: String?) {
+        assert(index >= 0 && index < answerButtons.count)
+        answerButtons[index].setTitle(title, for: UIControl.State.normal)
+    }
+    
+    func setQuestionText(text: String?) {
+        questionTextLabel?.text = text
+    }
+    
+    func getIndex(of button: UIButton) -> Int? {
+        return answerButtons.firstIndex(of: button)
+    }
+    
+    func getButton(at index: Int) -> UIButton {
+        assert(index >= 0 && index < answerButtons.count)
+        return answerButtons[index]
+    }
+    
+
+    
     private func createButton(buttonX: CGFloat, buttonY: CGFloat, buttonWidth: CGFloat, buttonHeight: CGFloat)
         -> UIButton {
         let answerButton = UIButton(frame: CGRect(origin: CGPoint(x: buttonX, y: buttonY), size: CGSize(width: buttonWidth, height: buttonHeight)))
@@ -68,7 +92,7 @@ class QuestionView: UIView {
         answerButton.layer.cornerRadius = answerButton.bounds.size.height / 3.0
         return answerButton
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
