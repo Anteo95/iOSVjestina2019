@@ -12,13 +12,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QuizViewController" customModule="iOSVjestina2019" customModuleProvider="target">
             <connections>
-                <outlet property="errorMessageLabel" destination="tlH-40-YhS" id="KZt-2O-tfJ"/>
-                <outlet property="fetchQuizzesButton" destination="5nI-tI-4QT" id="ggs-hr-g6d"/>
-                <outlet property="funFactLabel" destination="bL7-I8-APQ" id="Po3-fO-4Of"/>
-                <outlet property="logoutButton" destination="YkR-g4-Iz0" id="VM1-dd-YxI"/>
-                <outlet property="questionViewContainer" destination="TKR-8R-ZRc" id="tj8-0Q-qeH"/>
+                <outlet property="questionScrollView" destination="k2L-uG-qlt" id="RH4-iD-kAv"/>
                 <outlet property="quizImageView" destination="ZwQ-PS-X0B" id="z4h-8r-xbE"/>
                 <outlet property="quizTitleLabel" destination="MDB-V4-bPS" id="ZVo-tu-mYR"/>
+                <outlet property="startQuizButton" destination="XSp-kn-o8f" id="0bJ-mB-vU9"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -27,65 +24,53 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5nI-tI-4QT">
-                    <rect key="frame" x="130" y="57" width="174" height="54"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" title="Fetch quizzes">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="onTapFetchQuizzes:" destination="-1" eventType="touchUpInside" id="3L4-9c-5pR"/>
-                    </connections>
-                </button>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fun fact" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bL7-I8-APQ">
-                    <rect key="frame" x="54" y="134" width="313" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZwQ-PS-X0B">
-                    <rect key="frame" x="160" y="290" width="100" height="100"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TKR-8R-ZRc">
-                    <rect key="frame" x="12" y="406" width="382" height="456"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </view>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cannot fetch quizzes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlH-40-YhS">
-                    <rect key="frame" x="54" y="179" width="313" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YkR-g4-Iz0">
-                    <rect key="frame" x="331" y="57" width="63" height="58"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" title="Logout">
-                        <color key="titleColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
-                    </state>
-                    <connections>
-                        <action selector="onTapLogoutButton:" destination="-1" eventType="touchUpInside" id="cPf-8Z-3dk"/>
-                    </connections>
-                </button>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Naslov kviza" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDB-V4-bPS">
-                    <rect key="frame" x="72" y="215" width="291" height="59"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Naslov kviza" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDB-V4-bPS">
+                    <rect key="frame" x="8" y="76" width="398" height="29"/>
                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZwQ-PS-X0B">
+                    <rect key="frame" x="64" y="121" width="286" height="119"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="119" id="Ug6-bE-SLo"/>
+                    </constraints>
+                </imageView>
+                <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k2L-uG-qlt">
+                    <rect key="frame" x="8" y="320" width="398" height="534"/>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSp-kn-o8f">
+                    <rect key="frame" x="143" y="272" width="128" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="128" id="5Ec-Va-e7j"/>
+                        <constraint firstAttribute="height" constant="32" id="F6c-kk-kXL"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <state key="normal" title="Start Quiz"/>
+                    <connections>
+                        <action selector="onTapStartQuiz:" destination="-1" eventType="touchUpInside" id="zcH-NP-Ddz"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <color key="tintColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
+            <constraints>
+                <constraint firstItem="XSp-kn-o8f" firstAttribute="top" secondItem="ZwQ-PS-X0B" secondAttribute="bottom" constant="32" id="0Lt-pW-3ln"/>
+                <constraint firstItem="ZwQ-PS-X0B" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="64" id="1Er-9W-WHs"/>
+                <constraint firstItem="k2L-uG-qlt" firstAttribute="top" secondItem="XSp-kn-o8f" secondAttribute="bottom" constant="16" id="3Cc-al-qmF"/>
+                <constraint firstItem="MDB-V4-bPS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="32" id="6Oq-4N-ct7"/>
+                <constraint firstItem="k2L-uG-qlt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="8Ue-jb-Cba"/>
+                <constraint firstItem="ZwQ-PS-X0B" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="8xo-Bl-kax"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="MDB-V4-bPS" secondAttribute="trailing" constant="8" id="9Z3-8t-BCE"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="k2L-uG-qlt" secondAttribute="trailing" constant="8" id="IUP-RD-RMs"/>
+                <constraint firstItem="XSp-kn-o8f" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PV3-9A-Ifk"/>
+                <constraint firstItem="MDB-V4-bPS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="fa3-rj-0Xs"/>
+                <constraint firstItem="k2L-uG-qlt" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ggI-Oe-Twc"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="k2L-uG-qlt" secondAttribute="bottom" constant="8" id="j5U-U0-74w"/>
+                <constraint firstItem="ZwQ-PS-X0B" firstAttribute="top" secondItem="MDB-V4-bPS" secondAttribute="bottom" constant="16" id="kMp-7U-zID"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="-1581.1594202898552" y="-429.24107142857139"/>
+            <point key="canvasLocation" x="-1893" y="-444"/>
         </view>
     </objects>
 </document>

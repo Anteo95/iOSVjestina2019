@@ -35,8 +35,8 @@ class LoginViewController: UIViewController {
             if let token = token {
                 UserDefaults.standard.set(token, forKey: "token")
                 DispatchQueue.main.async {
-                    let quizViewController = QuizViewController()
-                    self.present(quizViewController, animated:true, completion: nil)
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window!.rootViewController = QuizViewController()
                 }
             } else {
                 DispatchQueue.main.async {

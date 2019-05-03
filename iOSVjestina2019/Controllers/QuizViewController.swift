@@ -10,130 +10,117 @@ import UIKit
 
 class QuizViewController: UIViewController {
     
-    let quizService = QuizService()
-    var quizzes: [Quiz]? = nil
-    var selectedQuiz: Quiz? = nil
-    var selectedQuestion: Question? = nil
-    
-    var questionView: QuestionView? = nil
-    @IBOutlet weak var errorMessageLabel: UILabel!
-    
-    @IBOutlet weak var fetchQuizzesButton: UIButton!
-    @IBOutlet weak var funFactLabel: UILabel!
     @IBOutlet weak var quizTitleLabel: UILabel!
     @IBOutlet weak var quizImageView: UIImageView!
-    @IBOutlet weak var questionViewContainer: UIView!
-    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var questionScrollView: UIScrollView!
+    @IBOutlet weak var startQuizButton: UIButton!
+    
+    var questionContentView = UIView()
+    
+    var quiz: Quiz? = nil
+    var quizImage: UIImage? = nil
+    var questionViews: [QuestionView] = []
+    var currentQuestionIndex = 0
+    
+    var answeredCorrectly = 0
+    
+    var displayedQuestionIndex: Int = 0 {
+        willSet {
+            let size = questionScrollView.frame.size
+            let frameWidth = size.width
+            questionScrollView.setContentOffset(CGPoint(x: CGFloat(newValue) * frameWidth, y: CGFloat(0)), animated: true)
+        }
+    }
+    
+    var startTime: Date = Date()
     
     let neutralAnswerColor = UIColor(red: 0.04, green: 0.478, blue: 1.0, alpha: 1.0)
     let wrongAnswerColor = UIColor(red: 0.987, green: 0.210, blue: 0.208, alpha: 1.0)
     let correctAnswerColor = UIColor(red: 0.230, green: 0.8, blue: 0.266, alpha: 1.0)
     
+    @IBAction func onTapStartQuiz(_ sender: Any) {
+        startTime = Date()
+        startQuizButton.isHidden = true
+        questionScrollView.isHidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchQuizzesButton.layer.cornerRadius = fetchQuizzesButton.bounds.size.height / 2
-    }
-    
-    @IBAction func onTapLogoutButton(_ sender: Any) {
-        UserDefaults.standard.removeObject(forKey: "token")
-        let loginViewController = LoginViewController()
-        self.present(loginViewController, animated:true, completion: nil)
-    }
-    
-    @IBAction func onTapFetchQuizzes(_ sender: Any) {
-        quizService.fetchQuizzes(urlString: "https://iosquiz.herokuapp.com/api/quizzes") { (quizzes) in
-            self.quizzes = quizzes
-            if let quizzes = quizzes {
-                let nbaQuestions: [[Question]] = quizzes.map {
-                    let filteredQuestions: [Question] = $0.questions.filter {
-                        return $0.question.contains("NBA")
-                    }
-                    return filteredQuestions
+        questionScrollView.addSubview(questionContentView)
+        
+        questionContentView.translatesAutoresizingMaskIntoConstraints = false
+        questionContentView.topAnchor.constraint(equalTo: questionScrollView.topAnchor).isActive = true
+        questionContentView.bottomAnchor.constraint(equalTo: questionScrollView.bottomAnchor).isActive = true
+        questionContentView.leadingAnchor.constraint(equalTo: questionScrollView.leadingAnchor).isActive = true
+        questionContentView.trailingAnchor.constraint(equalTo: questionScrollView.trailingAnchor).isActive = true
+        questionContentView.heightAnchor.constraint(equalTo: questionScrollView.heightAnchor).isActive = true
+        
+        if let quiz = quiz {
+            quizTitleLabel.text = quiz.title
+            if let quizImage = quizImage {
+                quizImageView.image = quizImage
+            }
+            for questionIndex in 0..<quiz.questions.count {
+                let qv = QuestionView()
+                questionViews.append(qv)
+                questionContentView.addSubview(qv)
+                let question = quiz.questions[questionIndex]
+                qv.setQuestionText(text: question.question)
+                qv.setButtontitle(at: 0, title: question.answers[0])
+                qv.setButtontitle(at: 1, title: question.answers[1])
+                qv.setButtontitle(at: 2, title: question.answers[2])
+                qv.setButtontitle(at: 3, title: question.answers[3])
+                qv.delegate = self
+                if questionIndex == 0 {
+                    qv.translatesAutoresizingMaskIntoConstraints = false
+                    qv.leadingAnchor.constraint(equalTo: questionContentView.leadingAnchor).isActive = true
+                    qv.topAnchor.constraint(equalTo: questionContentView.topAnchor).isActive = true
+                    qv.widthAnchor.constraint(equalTo: questionScrollView.widthAnchor).isActive = true
+                    qv.heightAnchor.constraint(equalTo: questionScrollView.heightAnchor).isActive = true
+                } else if questionIndex != quiz.questions.count - 1 {
+                    qv.translatesAutoresizingMaskIntoConstraints = false
+                    qv.leadingAnchor.constraint(equalTo: questionViews[questionIndex - 1].trailingAnchor).isActive = true
+                    qv.topAnchor.constraint(equalTo: questionContentView.topAnchor).isActive = true
+                    qv.widthAnchor.constraint(equalTo: questionScrollView.widthAnchor).isActive = true
+                    qv.heightAnchor.constraint(equalTo: questionScrollView.heightAnchor).isActive = true
+                } else {
+                    qv.translatesAutoresizingMaskIntoConstraints = false
+                    qv.leadingAnchor.constraint(equalTo: questionViews[questionIndex - 1].trailingAnchor).isActive = true
+                    qv.topAnchor.constraint(equalTo: questionContentView.topAnchor).isActive = true
+                    qv.widthAnchor.constraint(equalTo: questionScrollView.widthAnchor).isActive = true
+                    qv.heightAnchor.constraint(equalTo: questionScrollView.heightAnchor).isActive = true
+                    qv.trailingAnchor.constraint(equalTo: questionContentView.trailingAnchor).isActive = true
                 }
-                var nbaQuestionsCount = 0
-                nbaQuestions.forEach {
-                    print($0.count)
-                    nbaQuestionsCount += $0.count
-                }
+            }
+        }
+    }
+}
 
-                DispatchQueue.main.async {
-                    self.funFactLabel.text = "Number of questions that contain word 'NBA' is: \(nbaQuestionsCount)"
-                    self.funFactLabel.sizeToFit()
-                }
-                
-                let quizIndex = Int.random(in: 0..<quizzes.count)
-                let questionIndex = Int.random(in: 0..<quizzes[quizIndex].questions.count)
-                
-                self.selectedQuiz = quizzes[quizIndex]
-                self.selectedQuestion = quizzes[quizIndex].questions[questionIndex]
-                
-                guard let selectedQuiz = self.selectedQuiz else {
-                        return
-                }
-                
-                if let quizImage = selectedQuiz.image {
-                    self.quizService.fetchQuizImage(urlString: quizImage) { (image)  in
-                        DispatchQueue.main.async {
-                            self.quizImageView.image = image
-                            self.quizImageView.backgroundColor = selectedQuiz.category.color
-                        }
-                    }
-                }
-                
-                DispatchQueue.main.async {
-                    self.errorMessageLabel.isHidden = true
-                    self.questionView?.isHidden = false
-                    self.funFactLabel.isHidden = false
-                    self.quizTitleLabel.isHidden = false
-                    self.quizTitleLabel.text = selectedQuiz.title
-                    self.quizTitleLabel.backgroundColor = selectedQuiz.category.color
-                    if self.questionView == nil  {
-                        self.addQuestionView()
-                    } else {
-                        self.updateQuestionView()
-                    }
-                }
+extension QuizViewController: QuestionViewDelegate {
+    func answerTapped(tag: Int) {
+        let qv = questionViews[currentQuestionIndex]
+        guard let quiz = quiz else {
+            return
+        }
+        let correctAnswerIndex = quiz.questions[currentQuestionIndex].correctAnswer
+        if tag == correctAnswerIndex {
+            answeredCorrectly += 1
+        }
+        for i in 0...3 {
+            if correctAnswerIndex == i {
+                qv.setButtonBackgroundColor(at: i, color: correctAnswerColor)
             } else {
-                DispatchQueue.main.async {
-                    self.funFactLabel.isHidden = true
-                    self.quizTitleLabel.isHidden = true
-                    self.questionView?.isHidden = true
-                    self.errorMessageLabel.isHidden = false
-                }
+                qv.setButtonBackgroundColor(at: i, color: wrongAnswerColor)
             }
         }
-    }
-    
-    private func addQuestionView() {
-        questionView = QuestionView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: questionViewContainer.frame.size))
-        if let questionView = questionView {
-            questionView.setQuestionText(text: selectedQuestion?.question)
-            for i in 0...3 {
-                questionView.setButtontitle(at: i, title: selectedQuestion?.answers[i])
-                questionView.getButton(at: i).addTarget(self, action: #selector(QuizViewController.onTapAnswerButton), for: UIControl.Event.touchUpInside)
-            }
-            questionViewContainer.addSubview(questionView)
+        currentQuestionIndex += 1
+        if currentQuestionIndex >= quiz.questions.count {
+            print("correct: \(answeredCorrectly)")
+            let endTime = Date()
+            let timeElapsed = endTime.timeIntervalSince(startTime)
+            print("Time elapsed: \(timeElapsed)")
+        } else {
+            displayedQuestionIndex = currentQuestionIndex
         }
     }
-    
-    private func updateQuestionView() {
-        if let questionView = questionView, let selectedQuestion = selectedQuestion {
-            questionView.setQuestionText(text: selectedQuestion.question)
-            for i in 0...3 {
-                questionView.setButtonBackgroundColor(at: i, color: neutralAnswerColor)
-                questionView.setButtontitle(at: i, title: selectedQuestion.answers[i])
-            }
-        }
-    }
-    
-    @objc func onTapAnswerButton(_ sender: UIButton) {
-        if let questionView = questionView, let selectedQuestion = selectedQuestion, let index = questionView.getIndex(of: sender) {
-            if(index == selectedQuestion.correctAnswer) {
-                questionView.setButtonBackgroundColor(at: index, color: correctAnswerColor)
-            } else {
-                questionView.setButtonBackgroundColor(at: index, color: wrongAnswerColor)
-            }
-        }
-    }
-    
 }

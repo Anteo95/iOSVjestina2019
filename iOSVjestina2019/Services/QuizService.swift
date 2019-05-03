@@ -58,4 +58,26 @@ class QuizService {
             dataTask.resume()
         }
     }
+    
+    func sendQuizResult(urlString: String, quizId: Int, userId: Int, time: Double, numOfCorrect: Int) {
+        if let url = URL(string: urlString) {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            let parameters: [String: Any] = [
+                "quiz_id": quizId,
+                "user_id": userId,
+                "time:": time,
+                "no_of_correct": numOfCorrect
+            ]
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            guard let token = UserDefaults.standard.string(forKey: "token") else {
+                return
+            }
+            request.addValue(token, forHTTPHeaderField: "Authorization")
+            request.httpBody = parameters.percentEscaped().data(using: .utf8)
+            let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            }
+            dataTask.resume()
+        }
+    }
 }
