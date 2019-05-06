@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="iOSVjestina2019" customModuleProvider="target">
             <connections>
+                <outlet property="keyboardHeightConstraint" destination="Bdp-NT-okz" id="rcJ-FV-EuY"/>
                 <outlet property="passwordTextField" destination="fiG-Km-lbi" id="7wR-7c-AZg"/>
                 <outlet property="usernameTextField" destination="DIl-YC-0We" id="fTh-3w-KR8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -29,7 +30,7 @@
                     <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSE-sK-3Sx">
-                    <rect key="frame" x="107" y="438" width="200" height="41"/>
+                    <rect key="frame" x="107" y="805" width="200" height="41"/>
                     <color key="backgroundColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="200" id="5Gc-Xc-3Zd"/>
@@ -62,22 +63,31 @@
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <textInputTraits key="textInputTraits" textContentType="username"/>
                 </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yoF-D7-FhD" userLabel="Bottom View">
+                    <rect key="frame" x="0.0" y="862" width="414" height="0.0"/>
+                    <constraints>
+                        <constraint firstAttribute="height" id="Bdp-NT-okz"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="yoF-D7-FhD" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="2qc-lF-JnQ"/>
                 <constraint firstItem="hpd-T3-kuz" firstAttribute="leading" secondItem="DIl-YC-0We" secondAttribute="leading" constant="8" id="DGP-QA-aY5"/>
                 <constraint firstItem="fiG-Km-lbi" firstAttribute="height" secondItem="DIl-YC-0We" secondAttribute="height" id="Fap-OA-k5u"/>
                 <constraint firstItem="DIl-YC-0We" firstAttribute="top" secondItem="hpd-T3-kuz" secondAttribute="bottom" constant="16" id="Gux-oC-vfX"/>
+                <constraint firstItem="hSE-sK-3Sx" firstAttribute="bottom" secondItem="yoF-D7-FhD" secondAttribute="top" constant="-16" id="YB8-fS-eyL"/>
                 <constraint firstItem="fiG-Km-lbi" firstAttribute="top" secondItem="bZ2-ho-iHD" secondAttribute="bottom" constant="16" id="cQq-eV-FI7"/>
                 <constraint firstItem="DIl-YC-0We" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="220" id="coA-Ig-VcN"/>
                 <constraint firstItem="hSE-sK-3Sx" firstAttribute="centerX" secondItem="fiG-Km-lbi" secondAttribute="centerX" id="dsG-nq-vbk"/>
                 <constraint firstItem="DIl-YC-0We" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="64" id="e1Y-FL-y4y"/>
                 <constraint firstItem="fiG-Km-lbi" firstAttribute="centerX" secondItem="DIl-YC-0We" secondAttribute="centerX" id="gHz-U6-jtw"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="DIl-YC-0We" secondAttribute="trailing" constant="64" id="hDl-gC-ZVy"/>
-                <constraint firstItem="hSE-sK-3Sx" firstAttribute="top" secondItem="fiG-Km-lbi" secondAttribute="bottom" constant="50" id="ljq-sv-571"/>
                 <constraint firstItem="fiG-Km-lbi" firstAttribute="top" secondItem="DIl-YC-0We" secondAttribute="bottom" constant="64" id="m1v-tv-Qak"/>
                 <constraint firstItem="bZ2-ho-iHD" firstAttribute="leading" secondItem="fiG-Km-lbi" secondAttribute="leading" constant="8" id="pcn-l2-Rrf"/>
+                <constraint firstItem="yoF-D7-FhD" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="s4e-3h-LkV"/>
                 <constraint firstItem="fiG-Km-lbi" firstAttribute="width" secondItem="DIl-YC-0We" secondAttribute="width" id="yMO-xL-4oU"/>
+                <constraint firstItem="yoF-D7-FhD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="z7x-bb-aWI"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="-881.15942028985512" y="149.33035714285714"/>

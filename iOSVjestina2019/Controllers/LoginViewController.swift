@@ -14,21 +14,29 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var keyboardHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var loginBottomConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-//    @objc func keyboardWillShow(notification: Notification) {
-//        let keyboardSize = (notification.userInfo? [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-//        let keyboardHeight = keyboardSize!.height
-//        loginBottomConstraint.constant = keyboardHeight + 8
-//        UIView.animate(withDuration: 0.5) {
-//            self.view.layoutIfNeeded()
-//        }
-//    }
+    @objc func keyboardWillShow(notification: Notification) {
+        let keyboardSize = (notification.userInfo? [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        let keyboardHeight = keyboardSize!.height
+        keyboardHeightConstraint.constant = keyboardHeight
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        keyboardHeightConstraint.constant = 0
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
 
     
     @IBAction func onTapLoginButton(_ sender: Any) {
