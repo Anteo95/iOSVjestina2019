@@ -38,6 +38,8 @@ class QuizViewController: UIViewController {
     let wrongAnswerColor = UIColor(red: 0.987, green: 0.210, blue: 0.208, alpha: 1.0)
     let correctAnswerColor = UIColor(red: 0.230, green: 0.8, blue: 0.266, alpha: 1.0)
     
+    let quizService = QuizService()
+    
     @IBAction func onTapStartQuiz(_ sender: Any) {
         startTime = Date()
         startQuizButton.isHidden = true
@@ -105,13 +107,10 @@ extension QuizViewController: QuestionViewDelegate {
         let correctAnswerIndex = quiz.questions[currentQuestionIndex].correctAnswer
         if tag == correctAnswerIndex {
             answeredCorrectly += 1
-        }
-        for i in 0...3 {
-            if correctAnswerIndex == i {
-                qv.setButtonBackgroundColor(at: i, color: correctAnswerColor)
-            } else {
-                qv.setButtonBackgroundColor(at: i, color: wrongAnswerColor)
-            }
+            qv.setButtonBackgroundColor(at: tag, color: correctAnswerColor)
+        } else {
+            qv.setButtonBackgroundColor(at: tag, color: wrongAnswerColor)
+            qv.setButtonBackgroundColor(at: correctAnswerIndex, color: correctAnswerColor)
         }
         currentQuestionIndex += 1
         if currentQuestionIndex >= quiz.questions.count {
@@ -119,8 +118,20 @@ extension QuizViewController: QuestionViewDelegate {
             let endTime = Date()
             let timeElapsed = endTime.timeIntervalSince(startTime)
             print("Time elapsed: \(timeElapsed)")
+            sendQuizResult()
+            navigationController?.popViewController(animated: true)
         } else {
-            displayedQuestionIndex = currentQuestionIndex
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.displayedQuestionIndex = self.currentQuestionIndex
+            }
+        }
+    }
+    
+    private func sendQuizResult() {
+        guard let quiz = quiz else { return }
+        let userId = UserDefaults.standard.integer(forKey: "userId")
+        quizService.sendQuizResult(urlString: "https://iosquiz.herokuapp.com/api/result", quizId: quiz.id, userId: userId, time: 15.4, numOfCorrect: 7) { (status) in
+            
         }
     }
 }

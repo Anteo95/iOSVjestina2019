@@ -15,47 +15,48 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var loginBottomConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
+    
+//    @objc func keyboardWillShow(notification: Notification) {
+//        let keyboardSize = (notification.userInfo? [UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+//        let keyboardHeight = keyboardSize!.height
+//        loginBottomConstraint.constant = keyboardHeight + 8
+//        UIView.animate(withDuration: 0.5) {
+//            self.view.layoutIfNeeded()
+//        }
+//    }
 
     
     @IBAction func onTapLoginButton(_ sender: Any) {
         guard let username = usernameTextField.text, let password = passwordTextField.text else {
-            DispatchQueue.main.async {
-                let alertController = UIAlertController(title: "Login", message: "Wrong username or password!", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "Cancel", style: .default))
-                self.present(alertController, animated: true, completion: nil)
-            }
+            showAlert()
             return
         }
-        loginService.login(urlString: "https://iosquiz.herokuapp.com/api/session", username: username, password: password) { (token) in
-            if let token = token {
-                UserDefaults.standard.set(token, forKey: "token")
-                DispatchQueue.main.async {
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.window!.rootViewController = QuizViewController()
-                }
-            } else {
-                DispatchQueue.main.async {
-                    let alertController = UIAlertController(title: "Login", message: "Wrong username or password!", preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: "Cancel", style: .default))
-                    self.present(alertController, animated: true, completion: nil)
-                }
+        loginService.login(urlString: "https://iosquiz.herokuapp.com/api/session", username: username, password: password) { (arg) in
+            guard let (token, userId) = arg else {
+                self.showAlert()
+                return
+            }
+            UserDefaults.standard.set(token, forKey: "token")
+            UserDefaults.standard.set(userId, forKey: "userId")
+            DispatchQueue.main.async {
+                let vc = QuizListViewController()
+                let navigationController = UINavigationController(rootViewController: vc)
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.window!.rootViewController = navigationController
             }
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func showAlert() {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: "Login", message: "Wrong username or password!", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .default))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
-    */
-
 }

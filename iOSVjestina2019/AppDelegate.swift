@@ -17,22 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
-        let vc = QuizListViewController()
-        let navigationController = UINavigationController(rootViewController: vc)
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        if let _ = UserDefaults.standard.string(forKey: "token") {
+            let vc = QuizListViewController()
+            let navigationController = UINavigationController(rootViewController: vc)
+            window?.rootViewController = navigationController
+            window?.makeKeyAndVisible()
+        } else {
+            let vc = LoginViewController()
+            window?.rootViewController = vc
+            window?.makeKeyAndVisible()
+        }
         return true
-//        if let _ = UserDefaults.standard.string(forKey: "token") {
-//            let vc = QuizViewController()
-//            window?.rootViewController = vc
-//            window?.makeKeyAndVisible()
-//            return true
-//        } else {
-//            let vc = LoginViewController()
-//            window?.rootViewController = vc
-//            window?.makeKeyAndVisible()
-//            return true
-//        }
     }
 }
 

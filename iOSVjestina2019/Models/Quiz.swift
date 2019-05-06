@@ -43,7 +43,6 @@ class Quiz {
             let questions = jsonDict["questions"] as? [Any] {
             for question in questions {
                 guard let question = Question(json: question) else {
-                    print("Nil in quiz question")
                     return nil
                 }
                 self.questions.append(question)
@@ -58,7 +57,6 @@ class Quiz {
             self.level = level
             self.title = title
         } else {
-            print("Nil in quiz")
             return nil
         }
     }

@@ -9,7 +9,7 @@
 import Foundation
 
 class LoginService {
-    func login(urlString: String, username: String, password: String, completion:  @escaping (String?) -> Void) {
+    func login(urlString: String, username: String, password: String, completion:  @escaping ((String, Int)?) -> Void) {
         if let url = URL(string: urlString) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
@@ -22,8 +22,9 @@ class LoginService {
                 if let data = data {
                     do {
                         let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        if let jsonDict = json as? [String: Any], let token = jsonDict["token"] as? String {
-                            completion(token)
+                        if let jsonDict = json as? [String: Any], let token = jsonDict["token"] as? String,
+                            let userId = jsonDict["user_id"] as? Int {
+                            completion((token, userId))
                         } else {
                             completion(nil)
                         }

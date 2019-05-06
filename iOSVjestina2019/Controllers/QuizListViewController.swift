@@ -35,12 +35,23 @@ class QuizListViewController: UIViewController, UITableViewDataSource, UITableVi
         quizTable.register(nib, forCellReuseIdentifier: "QuizTableViewCell")
         quizTable.register(QuizTableHeader.self, forHeaderFooterViewReuseIdentifier: QuizTableHeader.reuseIdentifier)
         
-//        let button = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 0, height: 50)))
-//        button.setTitle("Logout", for: UIControl.State.normal)
-//        button.titleLabel?.textColor =
-//        button.backgroundColor = UIColor.blue
-//        quizTable.tableFooterView = button
-        quizTable.tableFooterView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 0, height: 50)))
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        footerView.backgroundColor = UIColor(red: 0.04, green: 0.478, blue: 1.0, alpha: 1.0)
+        
+        let button = UIButton()
+        footerView.addSubview(button)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
+        button.centerYAnchor.constraint(equalTo: footerView.centerYAnchor).isActive = true
+        button.widthAnchor.constraint(equalTo: footerView.widthAnchor).isActive = true
+        button.heightAnchor.constraint(equalTo: footerView.heightAnchor).isActive = true
+        
+        button.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        button.setTitle("Logout", for: UIControl.State.normal)
+        button.addTarget(self, action: #selector(onTapLogout), for: UIControl.Event.touchUpInside)
+        
+        quizTable.tableFooterView = footerView
     
         quizService.fetchQuizzes(urlString: "https://iosquiz.herokuapp.com/api/quizzes") { (quizzes) in
             self.createSectionsFromQuizzes(quizzes: quizzes)
@@ -51,6 +62,13 @@ class QuizListViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.quizTable.isHidden = false
             }
         }
+    }
+    
+    @objc private func onTapLogout() {
+        UserDefaults.standard.removeObject(forKey: "token")
+        UserDefaults.standard.removeObject(forKey: "userId")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window!.rootViewController = LoginViewController()
     }
     
     private func createSectionsFromQuizzes(quizzes: [Quiz]?) {

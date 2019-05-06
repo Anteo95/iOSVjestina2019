@@ -25,7 +25,6 @@ class Question {
             self.id = id
             self.question = question
         } else {
-            print("nil in question")
             return nil
         }
     }
