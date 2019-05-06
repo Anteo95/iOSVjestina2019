@@ -36,7 +36,7 @@ class QuizListViewController: UIViewController, UITableViewDataSource, UITableVi
         quizTable.register(QuizTableHeader.self, forHeaderFooterViewReuseIdentifier: QuizTableHeader.reuseIdentifier)
         
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
-        footerView.backgroundColor = UIColor(red: 0.04, green: 0.478, blue: 1.0, alpha: 1.0)
+        footerView.backgroundColor = UIColor(red: 0.0, green: 0.6, blue: 0.8, alpha: 1.0)
         
         let button = UIButton()
         footerView.addSubview(button)
