@@ -8,6 +8,16 @@
 
 import UIKit
 
+struct QuizHeaderData {
+    var title: String
+    var backgroundColor: UIColor
+    
+    init(title: String, backgroundColor: UIColor) {
+        self.title = title
+        self.backgroundColor = backgroundColor
+    }
+}
+
 class QuizTableHeader: UITableViewHeaderFooterView {
     static let reuseIdentifier = "QuizTableHeader"
     let titleLabel = UILabel.init()
@@ -22,6 +32,11 @@ class QuizTableHeader: UITableViewHeaderFooterView {
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
+    
+    func populate(with data: QuizHeaderData) {
+        titleLabel.text = data.title
+        contentView.backgroundColor = data.backgroundColor
     }
     
     required init?(coder aDecoder: NSCoder) {

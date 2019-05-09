@@ -18,7 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         if let _ = UserDefaults.standard.string(forKey: "token") {
-            let vc = QuizListViewController()
+            let quizListViewModel = QuizListViewModel()
+            let vc = QuizListViewController(viewModel: quizListViewModel)
             let navigationController = UINavigationController(rootViewController: vc)
             window?.rootViewController = navigationController
             window?.makeKeyAndVisible()

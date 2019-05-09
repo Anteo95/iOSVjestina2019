@@ -113,7 +113,7 @@ class QuestionView: UIView {
     
     private func createButton(tag: Int) -> UIButton {
         let answerButton = UIButton()
-        answerButton.backgroundColor = UIColor(red: 0.04, green: 0.478, blue: 1.0, alpha: 1.0)
+        answerButton.backgroundColor = UIColor(red: 0.0, green: 0.6, blue: 0.8, alpha: 1.0)
         answerButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         answerButton.tag = tag
         answerButton.addTarget(self, action: #selector(answerTapped), for: UIControl.Event.touchUpInside)
@@ -122,6 +122,10 @@ class QuestionView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+       print("deinit of questionView")
     }
 }
 

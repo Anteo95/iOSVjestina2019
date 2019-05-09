@@ -17,8 +17,9 @@ class QuizViewController: UIViewController {
     
     var questionContentView = UIView()
     
-    var quiz: Quiz? = nil
-    var quizImage: UIImage? = nil
+    
+    var viewModel: QuizViewModel!
+    
     var questionViews: [QuestionView] = []
     var currentQuestionIndex = 0
     
@@ -34,11 +35,16 @@ class QuizViewController: UIViewController {
     
     var startTime: Date = Date()
     
-    let neutralAnswerColor = UIColor(red: 0.04, green: 0.478, blue: 1.0, alpha: 1.0)
+    let neutralAnswerColor = UIColor(red: 0.0, green: 0.6, blue: 0.8, alpha: 1.0)
     let wrongAnswerColor = UIColor(red: 0.987, green: 0.210, blue: 0.208, alpha: 1.0)
     let correctAnswerColor = UIColor(red: 0.230, green: 0.8, blue: 0.266, alpha: 1.0)
     
     let quizService = QuizService()
+    
+    convenience init(viewModel: QuizViewModel) {
+        self.init()
+        self.viewModel = viewModel
+    }
     
     @IBAction func onTapStartQuiz(_ sender: Any) {
         startTime = Date()
@@ -57,42 +63,43 @@ class QuizViewController: UIViewController {
         questionContentView.trailingAnchor.constraint(equalTo: questionScrollView.trailingAnchor).isActive = true
         questionContentView.heightAnchor.constraint(equalTo: questionScrollView.heightAnchor).isActive = true
         
-        if let quiz = quiz {
-            quizTitleLabel.text = quiz.title
-            if let quizImage = quizImage {
-                quizImageView.image = quizImage
-            }
-            for questionIndex in 0..<quiz.questions.count {
-                let qv = QuestionView()
-                questionViews.append(qv)
-                questionContentView.addSubview(qv)
-                let question = quiz.questions[questionIndex]
-                qv.setQuestionText(text: question.question)
-                qv.setButtontitle(at: 0, title: question.answers[0])
-                qv.setButtontitle(at: 1, title: question.answers[1])
-                qv.setButtontitle(at: 2, title: question.answers[2])
-                qv.setButtontitle(at: 3, title: question.answers[3])
-                qv.delegate = self
-                if questionIndex == 0 {
-                    qv.translatesAutoresizingMaskIntoConstraints = false
-                    qv.leadingAnchor.constraint(equalTo: questionContentView.leadingAnchor).isActive = true
-                    qv.topAnchor.constraint(equalTo: questionContentView.topAnchor).isActive = true
-                    qv.widthAnchor.constraint(equalTo: questionScrollView.widthAnchor).isActive = true
-                    qv.heightAnchor.constraint(equalTo: questionScrollView.heightAnchor).isActive = true
-                } else if questionIndex != quiz.questions.count - 1 {
-                    qv.translatesAutoresizingMaskIntoConstraints = false
-                    qv.leadingAnchor.constraint(equalTo: questionViews[questionIndex - 1].trailingAnchor).isActive = true
-                    qv.topAnchor.constraint(equalTo: questionContentView.topAnchor).isActive = true
-                    qv.widthAnchor.constraint(equalTo: questionScrollView.widthAnchor).isActive = true
-                    qv.heightAnchor.constraint(equalTo: questionScrollView.heightAnchor).isActive = true
-                } else {
-                    qv.translatesAutoresizingMaskIntoConstraints = false
-                    qv.leadingAnchor.constraint(equalTo: questionViews[questionIndex - 1].trailingAnchor).isActive = true
-                    qv.topAnchor.constraint(equalTo: questionContentView.topAnchor).isActive = true
-                    qv.widthAnchor.constraint(equalTo: questionScrollView.widthAnchor).isActive = true
-                    qv.heightAnchor.constraint(equalTo: questionScrollView.heightAnchor).isActive = true
-                    qv.trailingAnchor.constraint(equalTo: questionContentView.trailingAnchor).isActive = true
-                }
+        quizTitleLabel.text = viewModel.quizTitle
+        quizImageView.kf.setImage(with: viewModel.imageUrl)
+        
+        for index in 0..<viewModel.numberOfQuestions {
+            let qv = QuestionView()
+            questionViews.append(qv)
+            questionContentView.addSubview(qv)
+            
+            qv.setQuestionText(text: viewModel.question(forIndex: index))
+            
+            let questionAnswers = viewModel.questionAnswers(forIndex: index)
+            qv.setButtontitle(at: 0, title: questionAnswers[0])
+            qv.setButtontitle(at: 1, title: questionAnswers[1])
+            qv.setButtontitle(at: 2, title: questionAnswers[2])
+            qv.setButtontitle(at: 3, title: questionAnswers[3])
+            
+            qv.delegate = self
+            
+            if index == 0 {
+                qv.translatesAutoresizingMaskIntoConstraints = false
+                qv.leadingAnchor.constraint(equalTo: questionContentView.leadingAnchor).isActive = true
+                qv.topAnchor.constraint(equalTo: questionContentView.topAnchor).isActive = true
+                qv.widthAnchor.constraint(equalTo: questionScrollView.widthAnchor).isActive = true
+                qv.heightAnchor.constraint(equalTo: questionScrollView.heightAnchor).isActive = true
+            } else if index != viewModel.numberOfQuestions - 1 {
+                qv.translatesAutoresizingMaskIntoConstraints = false
+                qv.leadingAnchor.constraint(equalTo: questionViews[index - 1].trailingAnchor).isActive = true
+                qv.topAnchor.constraint(equalTo: questionContentView.topAnchor).isActive = true
+                qv.widthAnchor.constraint(equalTo: questionScrollView.widthAnchor).isActive = true
+                qv.heightAnchor.constraint(equalTo: questionScrollView.heightAnchor).isActive = true
+            } else {
+                qv.translatesAutoresizingMaskIntoConstraints = false
+                qv.leadingAnchor.constraint(equalTo: questionViews[index - 1].trailingAnchor).isActive = true
+                qv.topAnchor.constraint(equalTo: questionContentView.topAnchor).isActive = true
+                qv.widthAnchor.constraint(equalTo: questionScrollView.widthAnchor).isActive = true
+                qv.heightAnchor.constraint(equalTo: questionScrollView.heightAnchor).isActive = true
+                qv.trailingAnchor.constraint(equalTo: questionContentView.trailingAnchor).isActive = true
             }
         }
     }
@@ -101,10 +108,7 @@ class QuizViewController: UIViewController {
 extension QuizViewController: QuestionViewDelegate {
     func answerTapped(tag: Int) {
         let qv = questionViews[currentQuestionIndex]
-        guard let quiz = quiz else {
-            return
-        }
-        let correctAnswerIndex = quiz.questions[currentQuestionIndex].correctAnswer
+        let correctAnswerIndex = viewModel.correctAnswer(forIndex: currentQuestionIndex)
         if tag == correctAnswerIndex {
             answeredCorrectly += 1
             qv.setButtonBackgroundColor(at: tag, color: correctAnswerColor)
@@ -113,12 +117,12 @@ extension QuizViewController: QuestionViewDelegate {
             qv.setButtonBackgroundColor(at: correctAnswerIndex, color: correctAnswerColor)
         }
         currentQuestionIndex += 1
-        if currentQuestionIndex >= quiz.questions.count {
+        if currentQuestionIndex >= viewModel.numberOfQuestions {
             print("correct: \(answeredCorrectly)")
             let endTime = Date()
             let timeElapsed = endTime.timeIntervalSince(startTime)
             print("Time elapsed: \(timeElapsed)")
-            sendQuizResult()
+//            sendQuizResult()
             navigationController?.popViewController(animated: true)
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -127,11 +131,11 @@ extension QuizViewController: QuestionViewDelegate {
         }
     }
     
-    private func sendQuizResult() {
-        guard let quiz = quiz else { return }
-        let userId = UserDefaults.standard.integer(forKey: "userId")
-        quizService.sendQuizResult(urlString: "https://iosquiz.herokuapp.com/api/result", quizId: quiz.id, userId: userId, time: 15.4, numOfCorrect: 7) { (status) in
-            
-        }
-    }
+//    private func sendQuizResult() {
+//        guard let quiz = quiz else { return }
+//        let userId = UserDefaults.standard.integer(forKey: "userId")
+//        quizService.sendQuizResult(urlString: "https://iosquiz.herokuapp.com/api/result", quizId: quiz.id, userId: userId, time: 15.4, numOfCorrect: 7) { (status) in
+//
+//        }
+//    }
 }

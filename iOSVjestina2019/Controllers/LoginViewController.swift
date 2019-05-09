@@ -52,7 +52,8 @@ class LoginViewController: UIViewController {
             UserDefaults.standard.set(token, forKey: "token")
             UserDefaults.standard.set(userId, forKey: "userId")
             DispatchQueue.main.async {
-                let vc = QuizListViewController()
+                let quizListViewModel = QuizListViewModel()
+                let vc = QuizListViewController(viewModel: quizListViewModel)
                 let navigationController = UINavigationController(rootViewController: vc)
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.window!.rootViewController = navigationController
