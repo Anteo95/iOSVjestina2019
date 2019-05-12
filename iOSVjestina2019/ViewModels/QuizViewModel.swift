@@ -9,7 +9,7 @@
 import Foundation
 
 class QuizViewModel {
-    var quiz: Quiz
+    private var quiz: Quiz
     
     init(quiz: Quiz) {
         self.quiz = quiz
@@ -25,6 +25,10 @@ class QuizViewModel {
         } else {
             return nil
         }
+    }
+    
+    var quizId: Int {
+        return quiz.id
     }
     
     var numberOfQuestions: Int {

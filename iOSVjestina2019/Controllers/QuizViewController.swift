@@ -15,13 +15,11 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var questionScrollView: UIScrollView!
     @IBOutlet weak var startQuizButton: UIButton!
     
-    var questionContentView = UIView()
-    
-    
     var viewModel: QuizViewModel!
     
+    var questionContentView: UIView!
+    
     var questionViews: [QuestionView] = []
-    var currentQuestionIndex = 0
     
     var answeredCorrectly = 0
     
@@ -54,6 +52,7 @@ class QuizViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        questionContentView = UIView()
         questionScrollView.addSubview(questionContentView)
         
         questionContentView.translatesAutoresizingMaskIntoConstraints = false
@@ -107,8 +106,8 @@ class QuizViewController: UIViewController {
 
 extension QuizViewController: QuestionViewDelegate {
     func answerTapped(tag: Int) {
-        let qv = questionViews[currentQuestionIndex]
-        let correctAnswerIndex = viewModel.correctAnswer(forIndex: currentQuestionIndex)
+        let qv = questionViews[displayedQuestionIndex]
+        let correctAnswerIndex = viewModel.correctAnswer(forIndex: displayedQuestionIndex)
         if tag == correctAnswerIndex {
             answeredCorrectly += 1
             qv.setButtonBackgroundColor(at: tag, color: correctAnswerColor)
@@ -116,26 +115,43 @@ extension QuizViewController: QuestionViewDelegate {
             qv.setButtonBackgroundColor(at: tag, color: wrongAnswerColor)
             qv.setButtonBackgroundColor(at: correctAnswerIndex, color: correctAnswerColor)
         }
-        currentQuestionIndex += 1
-        if currentQuestionIndex >= viewModel.numberOfQuestions {
-            print("correct: \(answeredCorrectly)")
+        if displayedQuestionIndex == viewModel.numberOfQuestions - 1 {
             let endTime = Date()
+            
             let timeElapsed = endTime.timeIntervalSince(startTime)
-            print("Time elapsed: \(timeElapsed)")
-//            sendQuizResult()
-            navigationController?.popViewController(animated: true)
+            let quizId = viewModel.quizId
+            let userId = UserDefaults.standard.integer(forKey: "userId")
+
+            quizService.sendQuizResult(urlString: "https://iosquiz.herokuapp.com/api/result", quizId: quizId, userId: userId, time: timeElapsed, numOfCorrect: answeredCorrectly) { (status) in
+//                guard let status = status else {
+//                    self.navigationController?.popViewController(animated: true)
+//                    return
+//                }
+//                switch (status) {
+//                case .ok:
+//                    self.navigationController?.popViewController(animated: true)
+//                default:
+//                    self.navigationController?.popViewController(animated: true)
+////                    showAlert()
+//                }
+            }
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.displayedQuestionIndex = self.currentQuestionIndex
+                self.displayedQuestionIndex += 1
             }
         }
     }
     
-//    private func sendQuizResult() {
-//        guard let quiz = quiz else { return }
-//        let userId = UserDefaults.standard.integer(forKey: "userId")
-//        quizService.sendQuizResult(urlString: "https://iosquiz.herokuapp.com/api/result", quizId: quiz.id, userId: userId, time: 15.4, numOfCorrect: 7) { (status) in
+//    private func showAlert() {
+//        DispatchQueue.main.async {
+//            let alertController = UIAlertController(title: "Result", message: "Error occured when trying to send results!", preferredStyle: .alert)
+//            alertController.addAction(UIAlertAction(title: "Send again", style: .default, handler: {
 //
+//            })
+//            alertController.addAction(UIAlertAction(title: "Cancel", style: .default)) { _ in
+//                navigationController?.popViewController(animated: true)
+//            }
+//            self.present(alertController, animated: true, completion: nil)
 //        }
 //    }
 }

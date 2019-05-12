@@ -41,12 +41,16 @@ class LoginViewController: UIViewController {
     
     @IBAction func onTapLoginButton(_ sender: Any) {
         guard let username = usernameTextField.text, let password = passwordTextField.text else {
-            showAlert()
+            DispatchQueue.main.async {
+                self.showAlert()
+            }
             return
         }
         loginService.login(urlString: "https://iosquiz.herokuapp.com/api/session", username: username, password: password) { (arg) in
             guard let (token, userId) = arg else {
-                self.showAlert()
+                DispatchQueue.main.async {
+                    self.showAlert()
+                }
                 return
             }
             UserDefaults.standard.set(token, forKey: "token")
@@ -62,10 +66,8 @@ class LoginViewController: UIViewController {
     }
     
     private func showAlert() {
-        DispatchQueue.main.async {
-            let alertController = UIAlertController(title: "Login", message: "Wrong username or password!", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .default))
-            self.present(alertController, animated: true, completion: nil)
-        }
+        let alertController = UIAlertController(title: "Login", message: "Wrong username or password!", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default))
+        self.present(alertController, animated: true, completion: nil)
     }
 }
