@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QuizListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class QuizListViewController: UIViewController {
 
     @IBOutlet weak var quizTable: UITableView!
     
@@ -23,11 +23,15 @@ class QuizListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupTableView()
+        bindViewModel()
+    }
+    
+    private func setupTableView() {
         let nib = UINib.init(nibName: "QuizTableViewCell", bundle: nil)
         quizTable.register(nib, forCellReuseIdentifier: "QuizTableViewCell")
         quizTable.register(QuizTableHeader.self, forHeaderFooterViewReuseIdentifier: QuizTableHeader.reuseIdentifier)
-
+        
         quizTable.delegate = self
         quizTable.dataSource = self
         
@@ -37,8 +41,11 @@ class QuizListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         tableFooterView = QuizTableViewFooterView(frame: CGRect(x: 0, y: 0, width: quizTable.frame.width, height: 50))
         tableFooterView.delegate = self
-        quizTable.tableFooterView = tableFooterView
         
+        quizTable.tableFooterView = tableFooterView
+    }
+    
+    private func bindViewModel() {
         viewModel.fetchQuizList {
             DispatchQueue.main.async {
                 self.quizTable.reloadData()
@@ -53,6 +60,10 @@ class QuizListViewController: UIViewController, UITableViewDataSource, UITableVi
             self.refreshControl.endRefreshing()
         }
     }
+
+}
+
+extension QuizListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -89,7 +100,7 @@ class QuizListViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.populate(with: quizCellData)
         }
         return cell
-
+        
     }
 }
 

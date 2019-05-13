@@ -8,6 +8,16 @@
 
 import Foundation
 
+struct QuestionViewModel {
+    var questionText: String
+    var answers: [String]
+    
+    init(questionText: String, answers: [String]) {
+        self.questionText = questionText
+        self.answers = answers
+    }
+}
+
 class QuizViewModel {
     private var quiz: Quiz
     
@@ -45,5 +55,9 @@ class QuizViewModel {
     
     func correctAnswer(forIndex index: Int) -> Int {
         return quiz.questions[index].correctAnswer
+    }
+    
+    func questionViewModel(forIndex index: Int) -> QuestionViewModel {
+        return QuestionViewModel(questionText: quiz.questions[index].question, answers: quiz.questions[index].answers)
     }
 }

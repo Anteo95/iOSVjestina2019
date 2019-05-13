@@ -23,8 +23,8 @@ class QuizListViewModel {
         }
     }
     
-    var items: [Quiz]? = nil
-    var sections: [Section] = []
+    private var items: [Quiz]? = nil
+    private var sections: [Section] = []
     
     
     func fetchQuizList(completion: @escaping () -> Void) {

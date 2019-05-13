@@ -55,7 +55,7 @@ class QuizService {
         }
     }
     
-    func sendQuizResult(urlString: String, quizId: Int, userId: Int, time: Double, numOfCorrect: Int, completion: @escaping (HTTPResponseStatus?) -> Void) {
+    func sendQuizResult(urlString: String, quizResult: QuizResult, completion: @escaping (HTTPResponseStatus?) -> Void) {
         if let url = URL(string: urlString) {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
@@ -65,10 +65,10 @@ class QuizService {
             }
             request.addValue(token, forHTTPHeaderField: "Authorization")
             let parameters: [String: Any] = [
-                "quiz_id": quizId,
-                "user_id": userId,
-                "time:": time,
-                "no_of_correct": numOfCorrect
+                "quiz_id": quizResult.quizId,
+                "user_id": quizResult.userId,
+                "time:": quizResult.time,
+                "no_of_correct": quizResult.numOfCorrect
             ]
             do {
                 request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
@@ -88,6 +88,13 @@ class QuizService {
             dataTask.resume()
         }
     }
+}
+
+struct QuizResult {
+    var quizId: Int
+    var userId: Int
+    var time: Double
+    var numOfCorrect: Int
 }
 
 
