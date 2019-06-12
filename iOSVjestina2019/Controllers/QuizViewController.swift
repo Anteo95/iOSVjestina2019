@@ -48,9 +48,34 @@ class QuizViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Leaderboards", style: .plain, target: self, action: #selector(onTapViewLeaderboard))
         setupQuestionViews()
         bindViewModel()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let viewControllers = navigationController?.viewControllers {
+            if viewControllers[viewControllers.count - 1] == self {
+            } else {
+                viewModel.closeQuiz()
+            }
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let viewControllers = navigationController?.viewControllers {
+            if viewControllers[viewControllers.count - 1] == self {
+                print("ON STACK view did disappear")
+            } else {
+                print("Not on stack view did disappear")
+            }
+        }
+        
+    }
+    
+    
     
     private func setupQuestionViews() {
         scrollContentView = UIView()
@@ -101,7 +126,18 @@ class QuizViewController: UIViewController {
         }
     }
     
+    @objc func onTapViewLeaderboard() {
+        let leaderboardViewModel = viewModel.leaderboardViewModel()
+        let leaderboardViewController = LeaderboardViewController(viewModel: leaderboardViewModel)
+        present(leaderboardViewController, animated: true, completion: nil)
+    }
+    
     @IBAction func onTapStartQuiz(_ sender: Any) {
+        if viewModel.quizOpened {
+            print("already opened")
+            return
+        }
+        viewModel.openQuiz()
         startTime = Date()
         startQuizButton.isHidden = true
         questionScrollView.isHidden = false

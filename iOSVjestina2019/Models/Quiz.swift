@@ -24,40 +24,40 @@ enum QuizCategory: String {
     }
 }
 
-class Quiz {
-    let category: QuizCategory
-    let description: String?
-    let id: Int
-    let image: String?
-    let level: Int
-    var questions: [Question] = []
-    let title: String
-    
-    init?(json: Any) {
-        if let jsonDict = json as? [String: Any],
-            let category = jsonDict["category"] as? String,
-            //let description = jsonDict["description"] as? String?,
-            let id = jsonDict["id"] as? Int,
-            let level = jsonDict["level"] as? Int,
-            let title = jsonDict["title"] as? String,
-            let questions = jsonDict["questions"] as? [Any] {
-            for question in questions {
-                guard let question = Question(json: question) else {
-                    return nil
-                }
-                self.questions.append(question)
-            }
-            guard let quizCategory = QuizCategory(rawValue: category) else {
-                return nil
-            }
-            self.category = quizCategory
-            self.description = jsonDict["description"] as? String
-            self.id = id
-            self.image = jsonDict["image"] as? String
-            self.level = level
-            self.title = title
-        } else {
-            return nil
-        }
-    }
-}
+//class Quiz {
+//    let category: QuizCategory
+//    let description: String?
+//    let id: Int
+//    let image: String?
+//    let level: Int
+//    var questions: [Question] = []
+//    let title: String
+//    
+//    init?(json: Any) {
+//        if let jsonDict = json as? [String: Any],
+//            let category = jsonDict["category"] as? String,
+//            //let description = jsonDict["description"] as? String?,
+//            let id = jsonDict["id"] as? Int,
+//            let level = jsonDict["level"] as? Int,
+//            let title = jsonDict["title"] as? String,
+//            let questions = jsonDict["questions"] as? [Any] {
+//            for question in questions {
+//                guard let question = Question(json: question) else {
+//                    return nil
+//                }
+//                self.questions.append(question)
+//            }
+//            guard let quizCategory = QuizCategory(rawValue: category) else {
+//                return nil
+//            }
+//            self.category = quizCategory
+//            self.description = jsonDict["description"] as? String
+//            self.id = id
+//            self.image = jsonDict["image"] as? String
+//            self.level = level
+//            self.title = title
+//        } else {
+//            return nil
+//        }
+//    }
+//}

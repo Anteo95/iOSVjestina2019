@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class QuizService {
+    
     func fetchQuizzes(urlString: String, completion: @escaping ([Quiz]?) -> Void) {
         guard let url = URL(string: urlString) else {
             completion(nil)
@@ -24,12 +25,12 @@ class QuizService {
             var quizzes: [Quiz] = []
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
-                guard let jsonDict = json as? [String: Any], let jsonQuizzes = jsonDict["quizzes"] as? [Any] else {
+                guard let jsonDict = json as? [String: Any], let jsonQuizzes = jsonDict["quizzes"] as? [[String: Any]] else {
                     completion(nil)
                     return
                 }
                 jsonQuizzes.forEach {
-                    if let quiz = Quiz(json: $0) {
+                    if let quiz = Quiz.createFrom(json: $0) {
                         quizzes.append(quiz)
                     }
                 }
@@ -40,6 +41,7 @@ class QuizService {
         }
         dataTask.resume()
     }
+    
     func fetchQuizImage(urlString: String, completion: @escaping(UIImage?) -> Void) {
         if let url = URL(string: urlString) {
             let request = URLRequest(url: url)
@@ -87,6 +89,46 @@ class QuizService {
             }
             dataTask.resume()
         }
+    }
+    
+    func fetchScores(urlString: String, completion: @escaping ([QuizScore]?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        guard let token = UserDefaults.standard.string(forKey: "token") else {
+            completion(nil)
+            return
+        }
+        request.addValue(token, forHTTPHeaderField: "Authorization")
+        
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                return
+            }
+            var quizScores: [QuizScore] = []
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                guard let jsonArray = json as? [Any] else {
+                    completion(nil)
+                    return
+                }
+                jsonArray.forEach {
+                    if let quizScore = QuizScore(json: $0) {
+                        quizScores.append(quizScore)
+                    }
+                }
+                completion(quizScores)
+            } catch {
+                completion(nil)
+            }
+        }
+        
+        dataTask.resume()
     }
 }
 

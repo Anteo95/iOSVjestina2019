@@ -7,5 +7,6 @@ target 'iOSVjestina2019' do
 
   # Pods for iOSVjestina2019
     pod 'Kingfisher', '~> 5.0'
+    pod 'ReachabilitySwift'
 
 end

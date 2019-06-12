@@ -30,10 +30,15 @@ class QuizListViewModel {
     func fetchQuizList(completion: @escaping () -> Void) {
         let quizService = QuizService()
         quizService.fetchQuizzes(urlString: "https://iosquiz.herokuapp.com/api/quizzes") { [weak self] (quizList) in
-            self?.items = quizList
+            self?.items = DataController.shared.fetchQuizList()
             self?.createSections()
             completion()
         }
+    }
+    
+    func searchQuizList(keyword: String) {
+        self.items = DataController.shared.searchQuizList(keyword: keyword)
+        self.createSections()
     }
     
     func numberOfRows(inSection section: Int) -> Int {
@@ -49,7 +54,7 @@ class QuizListViewModel {
             return nil
         }
         let quiz = sections[indexPath.section].items[indexPath.row]
-        return QuizCellData(imageUrl: quiz.image, title: quiz.title, description: quiz.description, level: quiz.level)
+        return QuizCellData(imageUrl: quiz.imageUrl, title: quiz.title ??   "", description: quiz.desc, level: Int(quiz.level))
     }
     
     func quizHeaderData(forSection section: Int) -> QuizHeaderData? {
@@ -64,14 +69,15 @@ class QuizListViewModel {
     }
     
     private func createSections() {
+        sections.removeAll()
         var sectionOfCategory: [QuizCategory: Int] = [:]
         items?.forEach { (quiz) in
-            if let section = sectionOfCategory[quiz.category] {
+            if let section = sectionOfCategory[quiz.quizCategory] {
                 self.sections[section].items.append(quiz)
             } else {
                 let section = self.sections.count
-                sectionOfCategory[quiz.category] = section
-                self.sections.append(Section(category: quiz.category))
+                sectionOfCategory[quiz.quizCategory] = section
+                self.sections.append(Section(category: quiz.quizCategory))
                 self.sections[section].items.append(quiz)
             }
         }

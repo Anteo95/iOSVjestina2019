@@ -1,20 +1,19 @@
 //
-//  QuizListViewController.swift
+//  QuizSearchViewController.swift
 //  iOSVjestina2019
 //
-//  Created by Anteo Ivankov on 20/04/2019.
+//  Created by Anteo Ivankov on 30/05/2019.
 //  Copyright © 2019 Anteo Ivankov. All rights reserved.
 //
 
 import UIKit
 
-class QuizListViewController: UIViewController {
-
+class QuizSearchViewController: UIViewController {
     @IBOutlet weak var quizTable: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var viewModel: QuizListViewModel!
     var refreshControl: UIRefreshControl!
-    var tableFooterView: QuizTableViewFooterView!
     
     convenience init(viewModel: QuizListViewModel) {
         self.init()
@@ -23,8 +22,9 @@ class QuizListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("View did load")
+        print("view did load")
         setupTableView()
+        searchBar.delegate = self
         bindViewModel()
     }
     
@@ -40,20 +40,13 @@ class QuizListViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(QuizListViewController.refresh), for: UIControl.Event.valueChanged)
         quizTable.refreshControl = refreshControl
         
-//        tableFooterView = QuizTableViewFooterView(frame: CGRect(x: 0, y: 0, width: quizTable.frame.width, height: 50))
-//        tableFooterView.delegate = self
-        let tableFooterView = UIView()
-        
-        quizTable.tableFooterView = tableFooterView
+        quizTable.tableFooterView = UIView()
     }
     
     private func bindViewModel() {
-        viewModel.fetchQuizList {
-            DispatchQueue.main.async {
-                self.quizTable.reloadData()
-                self.refreshControl.endRefreshing()
-            }
-        }
+        viewModel.searchQuizList(keyword: "")
+        self.quizTable.reloadData()
+        self.refreshControl.endRefreshing()
     }
     
     @objc func refresh() {
@@ -62,10 +55,10 @@ class QuizListViewController: UIViewController {
             self.refreshControl.endRefreshing()
         }
     }
-
+    
 }
 
-extension QuizListViewController: UITableViewDataSource, UITableViewDelegate {
+extension QuizSearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -102,15 +95,19 @@ extension QuizListViewController: UITableViewDataSource, UITableViewDelegate {
             cell.populate(with: quizCellData)
         }
         return cell
-        
     }
 }
 
-extension QuizListViewController: TableViewFooterViewDelegate {
-    func logoutBtnTapped() {
-        UserDefaults.standard.removeObject(forKey: "token")
-        UserDefaults.standard.removeObject(forKey: "userId")
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window!.rootViewController = LoginViewController()
+extension QuizSearchViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.searchQuizList(keyword: searchBar.text ?? "")
+        self.quizTable.reloadData()
+        self.refreshControl.endRefreshing()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchQuizList(keyword: searchText)
+        self.quizTable.reloadData()
+        self.refreshControl.endRefreshing()
     }
 }
