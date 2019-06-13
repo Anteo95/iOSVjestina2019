@@ -72,7 +72,7 @@ extension LeaderboardViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = scoreTable.dequeueReusableCell(withIdentifier: "ScoreTableViewCell", for: indexPath) as! ScoreTableViewCell
-        cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor.white : UIColor.lightGray
+        cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor.white : UIColor(red: 0.90, green: 0.90, blue: 0.90, alpha: 0.5)
         if let scoreCellData = viewModel.scoreCellData(atIndexPath: indexPath) {
             cell.populate(with: scoreCellData)
         }

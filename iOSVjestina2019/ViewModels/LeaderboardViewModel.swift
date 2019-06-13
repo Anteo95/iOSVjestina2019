@@ -13,11 +13,10 @@ class LeaderboardViewModel {
     private var quiz: Quiz
     
     var quizTitle: String {
-        return quiz.title ?? ""
+        return quiz.title
     }
     
     init(forQuiz quiz: Quiz) {
-        self.quizScores = []
         self.quiz = quiz
     }
     

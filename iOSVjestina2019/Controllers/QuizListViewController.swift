@@ -16,6 +16,8 @@ class QuizListViewController: UIViewController {
     var refreshControl: UIRefreshControl!
     var tableFooterView: QuizTableViewFooterView!
     
+    var activityIndicator = UIActivityIndicatorView(style: .gray)
+    
     convenience init(viewModel: QuizListViewModel) {
         self.init()
         self.viewModel = viewModel
@@ -23,7 +25,7 @@ class QuizListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("View did load")
+        self.title = "Quiz List"
         setupTableView()
         bindViewModel()
     }
@@ -40,16 +42,16 @@ class QuizListViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(QuizListViewController.refresh), for: UIControl.Event.valueChanged)
         quizTable.refreshControl = refreshControl
         
-//        tableFooterView = QuizTableViewFooterView(frame: CGRect(x: 0, y: 0, width: quizTable.frame.width, height: 50))
-//        tableFooterView.delegate = self
-        let tableFooterView = UIView()
+        quizTable.tableFooterView = UIView()
         
-        quizTable.tableFooterView = tableFooterView
+        quizTable.backgroundView = activityIndicator
     }
     
     private func bindViewModel() {
+        activityIndicator.startAnimating()
         viewModel.fetchQuizList {
             DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
                 self.quizTable.reloadData()
                 self.refreshControl.endRefreshing()
             }

@@ -2,7 +2,7 @@
 //  Question+CoreDataProperties.swift
 //  iOSVjestina2019
 //
-//  Created by Anteo Ivankov on 30/05/2019.
+//  Created by Anteo Ivankov on 12/06/2019.
 //  Copyright © 2019 Anteo Ivankov. All rights reserved.
 //
 //
@@ -17,9 +17,9 @@ extension Question {
         return NSFetchRequest<Question>(entityName: "Question")
     }
 
-    @NSManaged public var answers: [String]?
+    @NSManaged public var answers: [String]
     @NSManaged public var correctAnswer: Int32
     @NSManaged public var id: Int32
-    @NSManaged public var question: String?
+    @NSManaged public var question: String
 
 }

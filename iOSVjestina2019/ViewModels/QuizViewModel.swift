@@ -24,12 +24,11 @@ class QuizViewModel {
     
     init(quiz: Quiz) {
         self.quiz = quiz
-        let questions = quiz.questions?.array as! [Question]
-        self.questions = questions
+        self.questions = quiz.questions.array as! [Question]
     }
     
     var quizTitle: String {
-        return quiz.title?.uppercased() ?? ""
+        return quiz.title
     }
     
     var imageUrl: URL? {
@@ -44,32 +43,21 @@ class QuizViewModel {
         return Int(quiz.id)
     }
     
-    var quizOpened: Bool {
-         return quiz.opened
-    }
-    
     var numberOfQuestions: Int {
-        return quiz.questions?.count ?? 0
+        return quiz.questions.count
     }
     
-    func question(forIndex index: Int) -> String {
-        return questions[index].question ?? ""
-        //return quiz.questions?[index].question
+    var quizOpened: Bool {
+        return quiz.opened
     }
     
-    func questionAnswers(forIndex index: Int) -> [String] {
-        return questions[index].answers ?? []
-        //return quiz.questions?[index].answers
-    }
     
     func correctAnswer(forIndex index: Int) -> Int {
         return Int(questions[index].correctAnswer)
-//        return quiz.questions?[index].correctAnswer
     }
     
     func questionViewModel(forIndex index: Int) -> QuestionViewModel {
-        return QuestionViewModel(questionText: questions[index].question ?? "" , answers: questions[index].answers ?? [])
-//        return QuestionViewModel(questionText: quiz.questions[index].question, answers: quiz.questions[index].answers)
+        return QuestionViewModel(questionText: questions[index].question, answers: questions[index].answers)
     }
     
     func leaderboardViewModel() -> LeaderboardViewModel {

@@ -15,8 +15,6 @@
 		0F225F8C224EC7230051B627 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F225F8A224EC7230051B627 /* QuizViewController.swift */; };
 		0F225F8D224EC7230051B627 /* QuizViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F225F8B224EC7230051B627 /* QuizViewController.xib */; };
 		0F225F8F224EC79F0051B627 /* QuizService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F225F8E224EC79F0051B627 /* QuizService.swift */; };
-		0F225F93224F92D20051B627 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F225F92224F92D20051B627 /* Quiz.swift */; };
-		0F225F97224F93FC0051B627 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F225F96224F93FC0051B627 /* Question.swift */; };
 		0F2BA6AE22A0338000F3B06C /* QuizSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2BA6AC22A0338000F3B06C /* QuizSearchViewController.swift */; };
 		0F2BA6AF22A0338000F3B06C /* QuizSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F2BA6AD22A0338000F3B06C /* QuizSearchViewController.xib */; };
 		0F3B198E226B1C9600D634A2 /* QuizListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3B198C226B1C9600D634A2 /* QuizListViewController.swift */; };
@@ -60,8 +58,6 @@
 		0F225F8A224EC7230051B627 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		0F225F8B224EC7230051B627 /* QuizViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuizViewController.xib; sourceTree = "<group>"; };
 		0F225F8E224EC79F0051B627 /* QuizService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizService.swift; sourceTree = "<group>"; };
-		0F225F92224F92D20051B627 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
-		0F225F96224F93FC0051B627 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		0F2BA6AC22A0338000F3B06C /* QuizSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizSearchViewController.swift; sourceTree = "<group>"; };
 		0F2BA6AD22A0338000F3B06C /* QuizSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuizSearchViewController.xib; sourceTree = "<group>"; };
 		0F3B198C226B1C9600D634A2 /* QuizListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizListViewController.swift; sourceTree = "<group>"; };
@@ -192,8 +188,6 @@
 				0FEA5875229FCFBF00A01A01 /* Question+CoreDataProperties.swift */,
 				0FEA5876229FCFBF00A01A01 /* Quiz+CoreDataClass.swift */,
 				0FEA5877229FCFBF00A01A01 /* Quiz+CoreDataProperties.swift */,
-				0F225F92224F92D20051B627 /* Quiz.swift */,
-				0F225F96224F93FC0051B627 /* Question.swift */,
 				0F4092352299B58B0099CABA /* Model.xcdatamodeld */,
 				0FD46A97229B0CCF0041A247 /* QuizScore.swift */,
 			);
@@ -360,7 +354,6 @@
 				0FD46A98229B0CCF0041A247 /* QuizScore.swift in Sources */,
 				0F225F8F224EC79F0051B627 /* QuizService.swift in Sources */,
 				0FEA587B229FCFBF00A01A01 /* Quiz+CoreDataProperties.swift in Sources */,
-				0F225F93224F92D20051B627 /* Quiz.swift in Sources */,
 				0F5D6B9C22835C4800F7A5C0 /* QuizListViewModel.swift in Sources */,
 				0F4E33D42272FF1E00B46664 /* QuizTableHeader.swift in Sources */,
 				0F4E33D22272F7D600B46664 /* QuizTableFooter.swift in Sources */,
@@ -373,7 +366,6 @@
 				0FEA587A229FCFBF00A01A01 /* Quiz+CoreDataClass.swift in Sources */,
 				0F3B198E226B1C9600D634A2 /* QuizListViewController.swift in Sources */,
 				0FBD75FD2284968000E26D16 /* QuizViewModel.swift in Sources */,
-				0F225F97224F93FC0051B627 /* Question.swift in Sources */,
 				0F4092342299B2D90099CABA /* DataController.swift in Sources */,
 				0F225F75224EC6680051B627 /* AppDelegate.swift in Sources */,
 				0FEA5879229FCFBF00A01A01 /* Question+CoreDataProperties.swift in Sources */,

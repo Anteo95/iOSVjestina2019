@@ -48,6 +48,7 @@ class QuizViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Quiz"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Leaderboards", style: .plain, target: self, action: #selector(onTapViewLeaderboard))
         setupQuestionViews()
         bindViewModel()

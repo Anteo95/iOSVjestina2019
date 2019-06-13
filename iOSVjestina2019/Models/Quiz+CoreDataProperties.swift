@@ -2,14 +2,28 @@
 //  Quiz+CoreDataProperties.swift
 //  iOSVjestina2019
 //
-//  Created by Anteo Ivankov on 30/05/2019.
+//  Created by Anteo Ivankov on 12/06/2019.
 //  Copyright © 2019 Anteo Ivankov. All rights reserved.
 //
 //
 
 import Foundation
 import CoreData
+import UIKit
 
+enum QuizCategory: String {
+    case sports = "SPORTS"
+    case science = "SCIENCE"
+    
+    var color: UIColor  {
+        switch self {
+        case .sports:
+            return UIColor(red: 0.992, green: 0.599, blue: 0.074, alpha: 1.0)
+        case .science:
+            return UIColor(red: 0.997, green: 0.862, blue: 0.077, alpha: 1.0)
+        }
+    }
+}
 
 extension Quiz {
 
@@ -17,17 +31,17 @@ extension Quiz {
         return NSFetchRequest<Quiz>(entityName: "Quiz")
     }
 
-    @NSManaged public var category: String?
+    @NSManaged public var category: String
     @NSManaged public var desc: String?
     @NSManaged public var id: Int32
     @NSManaged public var imageUrl: String?
     @NSManaged public var level: Int32
-    @NSManaged public var title: String?
     @NSManaged public var opened: Bool
-    @NSManaged public var questions: NSOrderedSet?
+    @NSManaged public var title: String
+    @NSManaged public var questions: NSOrderedSet
     
     var quizCategory: QuizCategory {
-        return QuizCategory(rawValue: category ?? "SPORTS") ?? .sports
+        return QuizCategory(rawValue: category)!
     }
 
 }

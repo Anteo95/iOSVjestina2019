@@ -15,12 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         if let _ = UserDefaults.standard.string(forKey: "token") {
-//            let quizListViewModel = QuizListViewModel()
-//            let vc = QuizListViewController(viewModel: quizListViewModel)
-//            let navigationController = UINavigationController(rootViewController: vc)
             window?.rootViewController = TabViewController()
             window?.makeKeyAndVisible()
         } else {

@@ -17,6 +17,7 @@ class QuizSearchViewController: UIViewController {
     
     convenience init(viewModel: QuizListViewModel) {
         self.init()
+        self.title = "Search"
         self.viewModel = viewModel
     }
     
@@ -25,6 +26,7 @@ class QuizSearchViewController: UIViewController {
         print("view did load")
         setupTableView()
         searchBar.delegate = self
+        searchBar.placeholder = "Search quizzes"
         bindViewModel()
     }
     
@@ -99,12 +101,6 @@ extension QuizSearchViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension QuizSearchViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.searchQuizList(keyword: searchBar.text ?? "")
-        self.quizTable.reloadData()
-        self.refreshControl.endRefreshing()
-    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.searchQuizList(keyword: searchText)
         self.quizTable.reloadData()

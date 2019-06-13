@@ -54,7 +54,7 @@ class QuizListViewModel {
             return nil
         }
         let quiz = sections[indexPath.section].items[indexPath.row]
-        return QuizCellData(imageUrl: quiz.imageUrl, title: quiz.title ??   "", description: quiz.desc, level: Int(quiz.level))
+        return QuizCellData(imageUrl: quiz.imageUrl, title: quiz.title, description: quiz.desc, level: Int(quiz.level))
     }
     
     func quizHeaderData(forSection section: Int) -> QuizHeaderData? {
