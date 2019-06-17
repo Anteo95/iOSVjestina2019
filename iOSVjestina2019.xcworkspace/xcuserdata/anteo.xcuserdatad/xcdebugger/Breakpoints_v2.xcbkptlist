@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSVjestina2019/ViewModels/QuizListViewModel.swift"
-            timestampString = "582456824.808946"
+            timestampString = "582466927.767555"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "searchQuizList(keyword:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSVjestina2019/ViewModels/QuizListViewModel.swift"
-            timestampString = "582456824.809275"
+            timestampString = "582466927.767663"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "QuizListViewModel"
             landmarkType = "3">
          </BreakpointContent>

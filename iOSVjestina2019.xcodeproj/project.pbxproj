@@ -21,6 +21,7 @@
 		0F3B1992226B2B5700D634A2 /* QuizTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3B1990226B2B5700D634A2 /* QuizTableViewCell.swift */; };
 		0F3B1993226B2B5700D634A2 /* QuizTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3B1991226B2B5700D634A2 /* QuizTableViewCell.xib */; };
 		0F3FFFB222B794140002D12F /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3FFFB122B794140002D12F /* TabBarViewController.swift */; };
+		0F3FFFB422B7B9520002D12F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3FFFB322B7B9520002D12F /* NetworkManager.swift */; };
 		0F4092342299B2D90099CABA /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4092332299B2D90099CABA /* DataController.swift */; };
 		0F4092372299B58B0099CABA /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F4092352299B58B0099CABA /* Model.xcdatamodeld */; };
 		0F4E33D22272F7D600B46664 /* QuizTableFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4E33D12272F7D600B46664 /* QuizTableFooter.swift */; };
@@ -64,6 +65,7 @@
 		0F3B1990226B2B5700D634A2 /* QuizTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTableViewCell.swift; sourceTree = "<group>"; };
 		0F3B1991226B2B5700D634A2 /* QuizTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuizTableViewCell.xib; sourceTree = "<group>"; };
 		0F3FFFB122B794140002D12F /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		0F3FFFB322B7B9520002D12F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0F4092332299B2D90099CABA /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		0F4092362299B58B0099CABA /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		0F4E33D12272F7D600B46664 /* QuizTableFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTableFooter.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				0FC248C122A04BB70078A278 /* SettingsViewController.swift */,
 				0FC248C222A04BB70078A278 /* SettingsViewController.xib */,
 				0F3FFFB122B794140002D12F /* TabBarViewController.swift */,
+				0F3FFFB322B7B9520002D12F /* NetworkManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F3FFFB422B7B9520002D12F /* NetworkManager.swift in Sources */,
 				0F838F46229BEFFE00BAFC09 /* ScoreTableViewCell.swift in Sources */,
 				0FD46A98229B0CCF0041A247 /* QuizScore.swift in Sources */,
 				0F225F8F224EC79F0051B627 /* QuizService.swift in Sources */,

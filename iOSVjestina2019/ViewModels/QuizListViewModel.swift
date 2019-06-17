@@ -28,11 +28,17 @@ class QuizListViewModel {
     
     
     func fetchQuizList(completion: @escaping () -> Void) {
-        let quizService = QuizService()
-        quizService.fetchQuizzes(urlString: "https://iosquiz.herokuapp.com/api/quizzes") { [weak self] (quizList) in
-            self?.items = DataController.shared.fetchQuizList()
-            self?.createSections()
-            completion()
+        self.items = DataController.shared.fetchQuizList()
+        self.createSections()
+        completion()
+        NetworkManager.isReachable { _ in
+            print("is Reachable")
+            let quizService = QuizService()
+            quizService.fetchQuizzes(urlString: "https://iosquiz.herokuapp.com/api/quizzes") { [weak self] (quizList) in
+                self?.items = DataController.shared.fetchQuizList()
+                self?.createSections()
+                completion()
+            }
         }
     }
     

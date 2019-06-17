@@ -68,9 +68,7 @@ class QuizViewController: UIViewController {
         super.viewDidDisappear(animated)
         if let viewControllers = navigationController?.viewControllers {
             if viewControllers[viewControllers.count - 1] == self {
-                print("ON STACK view did disappear")
-            } else {
-                print("Not on stack view did disappear")
+                
             }
         }
         
