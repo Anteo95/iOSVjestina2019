@@ -27,6 +27,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yoF-D7-FhD" userLabel="Bottom View">
                     <rect key="frame" x="0.0" y="862" width="414" height="0.0"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" id="Bdp-NT-okz"/>
                     </constraints>
@@ -73,7 +74,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.84292059075342463" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="fiG-Km-lbi" firstAttribute="height" secondItem="DIl-YC-0We" secondAttribute="height" id="8bA-eg-zOL"/>
                         <constraint firstItem="fiG-Km-lbi" firstAttribute="leading" secondItem="DIl-YC-0We" secondAttribute="leading" id="AJv-Km-tvO"/>
@@ -92,7 +93,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="yoF-D7-FhD" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="2qc-lF-JnQ"/>
                 <constraint firstItem="RBK-WT-1e7" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="BAS-rT-IKu"/>

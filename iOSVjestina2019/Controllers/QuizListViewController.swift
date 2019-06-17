@@ -49,11 +49,11 @@ class QuizListViewController: UIViewController {
     
     private func bindViewModel() {
         activityIndicator.startAnimating()
-        viewModel.fetchQuizList {
+        viewModel.fetchQuizList { [weak self] in
             DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.quizTable.reloadData()
-                self.refreshControl.endRefreshing()
+                self?.activityIndicator.stopAnimating()
+                self?.quizTable.reloadData()
+                self?.refreshControl.endRefreshing()
             }
         }
     }
@@ -77,7 +77,11 @@ extension QuizListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 128
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -33,8 +33,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30K-hq-Si6">
-                        <rect key="frame" x="98" y="53" width="294" height="50.5"/>
-                        <string key="text">sadjlsdjkladsjdasj;ldjsa;kldj;alskdj;askldj;asldkjk;asldjas;dljkakds;ljas;lkasjd;lasjkdl;sadjk;ladks;lk;dls;ks;dlks;dlksd;klsdl;ksd;lkdssd</string>
+                        <rect key="frame" x="98" y="53" width="294" height="80.5"/>
+                        <string key="text">abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdaskd;ks;kads;lkads;lkasdsda;klsda;kladsdsadas;jlksaddkdkdkdghkjhkjhjkjhkhlkjhklhj</string>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -51,13 +51,15 @@
                     <constraint firstItem="hKR-HP-Xr5" firstAttribute="top" secondItem="n1q-Pn-C73" secondAttribute="top" id="6IY-R3-WZa"/>
                     <constraint firstItem="30K-hq-Si6" firstAttribute="leading" secondItem="hKR-HP-Xr5" secondAttribute="leading" id="6hq-7P-ZOp"/>
                     <constraint firstItem="30K-hq-Si6" firstAttribute="top" secondItem="hKR-HP-Xr5" secondAttribute="bottom" constant="8" id="Ai6-qE-ryr"/>
-                    <constraint firstItem="n1q-Pn-C73" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Dd7-3U-5bT"/>
+                    <constraint firstItem="n1q-Pn-C73" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Dd7-3U-5bT"/>
                     <constraint firstItem="hKR-HP-Xr5" firstAttribute="leading" secondItem="n1q-Pn-C73" secondAttribute="trailing" constant="8" id="Rf0-s5-wK2"/>
+                    <constraint firstAttribute="bottom" secondItem="30K-hq-Si6" secondAttribute="bottom" constant="16" id="ax6-xh-zyn"/>
                     <constraint firstAttribute="trailing" secondItem="6MP-S0-H0G" secondAttribute="trailing" constant="8" id="g8O-ht-8H5"/>
                     <constraint firstItem="hKR-HP-Xr5" firstAttribute="trailing" secondItem="6MP-S0-H0G" secondAttribute="leading" constant="-8" id="hEu-Hl-nXr"/>
-                    <constraint firstItem="n1q-Pn-C73" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="16" id="qVP-sb-iJq"/>
+                    <constraint firstItem="n1q-Pn-C73" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="27" id="qVP-sb-iJq"/>
                     <constraint firstAttribute="trailing" secondItem="30K-hq-Si6" secondAttribute="trailing" constant="8" id="qhp-jb-R5q"/>
                     <constraint firstItem="hKR-HP-Xr5" firstAttribute="baseline" secondItem="6MP-S0-H0G" secondAttribute="baseline" id="rdt-8F-M2z"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="n1q-Pn-C73" secondAttribute="bottom" constant="8" id="wkD-ky-7kQ"/>
                     <constraint firstItem="6MP-S0-H0G" firstAttribute="top" secondItem="hKR-HP-Xr5" secondAttribute="top" id="zET-Dq-YgG"/>
                 </constraints>
             </tableViewCellContentView>

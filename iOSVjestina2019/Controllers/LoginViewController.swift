@@ -132,7 +132,7 @@ class LoginViewController: UIViewController {
             DispatchQueue.main.async {
                 self.animateEverythingOut { _ in
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.window!.rootViewController = TabViewController()
+                    appDelegate.window!.rootViewController = TabBarViewController()
                 }
             }
         }

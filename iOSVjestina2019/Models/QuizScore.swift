@@ -19,7 +19,7 @@ struct QuizScore {
             guard let scoreAsDouble = Double(score) else {
                 return nil
             }
-            self.score = scoreAsDouble
+            self.score = Double(round(scoreAsDouble * 1000) / 1000)
             self.username = username
         } else {
             return nil

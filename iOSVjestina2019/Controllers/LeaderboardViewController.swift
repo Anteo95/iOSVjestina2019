@@ -15,6 +15,8 @@ class LeaderboardViewController: UIViewController {
     
     var viewModel: LeaderboardViewModel!
     var refreshControl: UIRefreshControl!
+    
+    var activityIndicator = UIActivityIndicatorView(style: .gray)
 
     
     convenience init(viewModel: LeaderboardViewModel) {
@@ -41,21 +43,27 @@ class LeaderboardViewController: UIViewController {
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(LeaderboardViewController.refresh), for: UIControl.Event.valueChanged)
+        
+        scoreTable.allowsSelection = false
+        scoreTable.backgroundView = activityIndicator
     }
     
     func bindViewModel() {
-        viewModel.fetchQuizScores {
+        activityIndicator.startAnimating()
+        scoreTable.separatorStyle = .none
+        viewModel.fetchQuizScores { [weak self] in
             DispatchQueue.main.async {
-                self.scoreTable.reloadData()
-                self.refreshControl.endRefreshing()
+                self?.activityIndicator.stopAnimating()
+                self?.scoreTable.reloadData()
+                self?.refreshControl.endRefreshing()
             }
         }
     }
     
     @objc func refresh() {
-        DispatchQueue.main.async {
-            self.scoreTable.reloadData()
-            self.refreshControl.endRefreshing()
+        DispatchQueue.main.async { [weak self] in
+            self?.scoreTable.reloadData()
+            self?.refreshControl.endRefreshing()
         }
     }
 }
@@ -67,9 +75,8 @@ extension LeaderboardViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
-        //return UITableView.automaticDimension
     }
-    
+        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = scoreTable.dequeueReusableCell(withIdentifier: "ScoreTableViewCell", for: indexPath) as! ScoreTableViewCell
         cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor.white : UIColor(red: 0.90, green: 0.90, blue: 0.90, alpha: 0.5)

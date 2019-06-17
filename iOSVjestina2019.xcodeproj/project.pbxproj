@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F0E9E8F2295C69600A50E9C /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0E9E8E2295C69600A50E9C /* TabViewController.swift */; };
 		0F1243852254AB9400967926 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1243842254AB9400967926 /* LoginService.swift */; };
 		0F225F75224EC6680051B627 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F225F74224EC6680051B627 /* AppDelegate.swift */; };
 		0F225F7C224EC6690051B627 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F225F7B224EC6690051B627 /* Assets.xcassets */; };
@@ -21,6 +20,7 @@
 		0F3B198F226B1C9600D634A2 /* QuizListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3B198D226B1C9600D634A2 /* QuizListViewController.xib */; };
 		0F3B1992226B2B5700D634A2 /* QuizTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3B1990226B2B5700D634A2 /* QuizTableViewCell.swift */; };
 		0F3B1993226B2B5700D634A2 /* QuizTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F3B1991226B2B5700D634A2 /* QuizTableViewCell.xib */; };
+		0F3FFFB222B794140002D12F /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3FFFB122B794140002D12F /* TabBarViewController.swift */; };
 		0F4092342299B2D90099CABA /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4092332299B2D90099CABA /* DataController.swift */; };
 		0F4092372299B58B0099CABA /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F4092352299B58B0099CABA /* Model.xcdatamodeld */; };
 		0F4E33D22272F7D600B46664 /* QuizTableFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4E33D12272F7D600B46664 /* QuizTableFooter.swift */; };
@@ -48,7 +48,6 @@
 
 /* Begin PBXFileReference section */
 		02274F4D7842A3B3560E61AA /* Pods-iOSVjestina2019.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSVjestina2019.debug.xcconfig"; path = "Target Support Files/Pods-iOSVjestina2019/Pods-iOSVjestina2019.debug.xcconfig"; sourceTree = "<group>"; };
-		0F0E9E8E2295C69600A50E9C /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		0F1243842254AB9400967926 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		0F225F71224EC6680051B627 /* iOSVjestina2019.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSVjestina2019.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F225F74224EC6680051B627 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +63,7 @@
 		0F3B198D226B1C9600D634A2 /* QuizListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuizListViewController.xib; sourceTree = "<group>"; };
 		0F3B1990226B2B5700D634A2 /* QuizTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTableViewCell.swift; sourceTree = "<group>"; };
 		0F3B1991226B2B5700D634A2 /* QuizTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuizTableViewCell.xib; sourceTree = "<group>"; };
+		0F3FFFB122B794140002D12F /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		0F4092332299B2D90099CABA /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		0F4092362299B58B0099CABA /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		0F4E33D12272F7D600B46664 /* QuizTableFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTableFooter.swift; sourceTree = "<group>"; };
@@ -145,7 +145,6 @@
 				0FB542422254A79B008492C8 /* LoginViewController.xib */,
 				0F3B198C226B1C9600D634A2 /* QuizListViewController.swift */,
 				0F3B198D226B1C9600D634A2 /* QuizListViewController.xib */,
-				0F0E9E8E2295C69600A50E9C /* TabViewController.swift */,
 				0F4092332299B2D90099CABA /* DataController.swift */,
 				0FD46A9B229B10250041A247 /* LeaderboardViewController.swift */,
 				0FD46A9C229B10250041A247 /* LeaderboardViewController.xib */,
@@ -153,6 +152,7 @@
 				0F2BA6AD22A0338000F3B06C /* QuizSearchViewController.xib */,
 				0FC248C122A04BB70078A278 /* SettingsViewController.swift */,
 				0FC248C222A04BB70078A278 /* SettingsViewController.xib */,
+				0F3FFFB122B794140002D12F /* TabBarViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -360,8 +360,8 @@
 				0F4EB37A22534A7B00E74170 /* QuestionView.swift in Sources */,
 				0F1243852254AB9400967926 /* LoginService.swift in Sources */,
 				0FB542432254A79B008492C8 /* LoginViewController.swift in Sources */,
+				0F3FFFB222B794140002D12F /* TabBarViewController.swift in Sources */,
 				0F2BA6AE22A0338000F3B06C /* QuizSearchViewController.swift in Sources */,
-				0F0E9E8F2295C69600A50E9C /* TabViewController.swift in Sources */,
 				0FEA5878229FCFBF00A01A01 /* Question+CoreDataClass.swift in Sources */,
 				0FEA587A229FCFBF00A01A01 /* Quiz+CoreDataClass.swift in Sources */,
 				0F3B198E226B1C9600D634A2 /* QuizListViewController.swift in Sources */,

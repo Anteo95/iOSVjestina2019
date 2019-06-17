@@ -22,21 +22,23 @@ class QuizService {
                 completion(nil)
                 return
             }
-            var quizzes: [Quiz] = []
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                guard let jsonDict = json as? [String: Any], let jsonQuizzes = jsonDict["quizzes"] as? [[String: Any]] else {
-                    completion(nil)
-                    return
-                }
-                jsonQuizzes.forEach {
-                    if let quiz = Quiz.createFrom(json: $0) {
-                        quizzes.append(quiz)
+            DispatchQueue.main.async {
+                var quizzes: [Quiz] = []
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    guard let jsonDict = json as? [String: Any], let jsonQuizzes = jsonDict["quizzes"] as? [[String: Any]] else {
+                        completion(nil)
+                        return
                     }
+                    jsonQuizzes.forEach {
+                        if let quiz = Quiz.createFrom(json: $0) {
+                            quizzes.append(quiz)
+                        }
+                    }
+                    completion(quizzes)
+                } catch {
+                    completion(nil)
                 }
-                completion(quizzes)
-            } catch {
-                completion(nil)
             }
         }
         dataTask.resume()
@@ -66,6 +68,7 @@ class QuizService {
                 return
             }
             request.addValue(token, forHTTPHeaderField: "Authorization")
+            print("Result:  \(quizResult.quizId) \(quizResult.userId) \(quizResult.time) \(quizResult.numOfCorrect) ")
             let parameters: [String: Any] = [
                 "quiz_id": quizResult.quizId,
                 "user_id": quizResult.userId,

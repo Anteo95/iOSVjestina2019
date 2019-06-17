@@ -23,7 +23,6 @@ class QuizSearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("view did load")
         setupTableView()
         searchBar.delegate = self
         searchBar.placeholder = "Search quizzes"
@@ -70,7 +69,11 @@ extension QuizSearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 128
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
